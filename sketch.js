@@ -7,6 +7,20 @@ var spaceData;
 let stars = [];
 let speed;
 
+let array = [
+  [300, 100],
+  [300, 200],
+  [300, 300],
+  [300, 400],
+  [300, 500],
+
+  [850, 100],
+  [850, 200],
+  [850, 300],
+  [850, 400],
+  [850, 500],
+]
+
 function preload(){
   earth = loadImage('earth.png');
   astronaut = loadImage('astronaut.png')
@@ -25,6 +39,9 @@ function setup() {
 
 function gotData(data){
   spaceData = data;
+
+  print(spaceData)
+
 }
 
 
@@ -41,19 +58,20 @@ function draw(){
   }
   pop();
   
-  randomSeed(2);
   
   imageMode(CENTER);
   image(earth, 600, 300);
    
   if (spaceData){
     for (var i = 0; i < spaceData.people.length; i++){      
-      xpos = random(50, width-50) + 100;
-      ypos = random(50, height-50) + 100;
+      
+      xpos = array[i][0];
+      ypos = array[i][1];
+
       fill(255);
       text(spaceData.people[i].craft, xpos, ypos);
       text(spaceData.people[i].name, xpos, ypos+15);
-      image(astronaut, xpos-15, ypos, 40, 40);     
+      image(astronaut, xpos-15, ypos + 3, 40, 40);     
     }
   }  
 }
@@ -78,7 +96,6 @@ class Star{
   }
   
   display(){
-    //fill(colour);
     noStroke();
     let sx = map(this.x/this.z, 0, 1, 0, width);
     let sy = map(this.y/this.z, 0, 1, 0, height);
